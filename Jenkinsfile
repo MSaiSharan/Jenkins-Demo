@@ -1,14 +1,8 @@
 pipeline {
-    // Use a Docker-in-Docker image so 'docker' commands are available
-    agent {
-        docker {
-            image 'docker:24-dind'   // Docker-in-Docker image
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // mount host Docker socket
-        }
-    }
+    agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // matches Jenkins credential ID
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         DOCKER_IMAGE = "msaisharan/jenkinsdemo"
     }
 
