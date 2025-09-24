@@ -9,27 +9,20 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo "Checking out GitHub repository..."
                 git branch: 'main', url: 'https://github.com/MSaiSharan/Jenkins-Demo.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                echo "Building Docker image..."
+                echo 'Building Docker image...'
                 sh "docker build -t $DOCKER_IMAGE:latest ."
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo "No tests yet..."
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                echo "Pushing Docker image to Docker Hub..."
+                echo 'Pushing Docker image...'
                 sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                 sh "docker push $DOCKER_IMAGE:latest"
             }
@@ -37,7 +30,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Running Docker container..."
+                echo 'Deploying Docker image...'
                 sh "docker run -d -p 3000:3000 $DOCKER_IMAGE:latest"
             }
         }
