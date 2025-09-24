@@ -30,4 +30,18 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    sh "echo $DOCKERHUB_CREDEN_
+                    sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                    sh "docker push $DOCKER_IMAGE:latest"
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    sh "docker run -d -p 3000:3000 $DOCKER_IMAGE:latest"
+                }
+            }
+        }
+    }
+}
