@@ -1,9 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('Docker Credentails') // match your Jenkins ID exactly
-        DOCKER_IMAGE = "msaisharan/jenkinsdemo"
+   environment {
+    DOCKERHUB_CREDENTIALS = credentials('Docker Credentails') // exact same spelling, case, and space
+    DOCKER_IMAGE = "msaisharan/jenkinsdemo"
+
     }
 
     stages {
